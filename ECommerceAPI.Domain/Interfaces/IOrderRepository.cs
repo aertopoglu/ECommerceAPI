@@ -10,7 +10,7 @@ namespace ECommerceAPI.Domain.Interfaces
     public interface IOrderRepository : IGenericRepository<Order>
     {
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int  userId);
-        Task<Order> GetOrderByIdAsync(int OrderId);
+        Task<Order?> GetOrderByIdAsync(int OrderId);
         Task<IEnumerable<Order>> GetOrdersByStatusAsync(string OrderStatus);
         Task<int> GetOrderCountAsync(int userId);
     }

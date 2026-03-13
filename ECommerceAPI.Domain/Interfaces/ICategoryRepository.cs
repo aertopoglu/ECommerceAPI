@@ -10,7 +10,8 @@ namespace ECommerceAPI.Domain.Interfaces
     public interface ICategoryRepository : IGenericRepository<Category>
     {
         Task<Category?> GetCategoryByUrlAsync(string url);
-        Task<Category?> GetCategoryByIdAsync(int id);
         Task DeleteProductsByCategory(int productId,int categoryId);
+        Task<Category?> GetCategoryWithProducts(int productId,int categoryId);
+
     }
 }
