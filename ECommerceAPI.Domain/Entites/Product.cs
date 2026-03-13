@@ -20,7 +20,6 @@ namespace ECommerceAPI.Domain.Entites
         public bool IsApproved { get; set; }
         public DateTime DateAdded {  get; set; } = DateTime.UtcNow;
         public List<ProductCategory> ProductCategories { get; set; } = new();
-
-
+        public List<OrderItem> OrderItems { get; set; } = new();
     }
 }

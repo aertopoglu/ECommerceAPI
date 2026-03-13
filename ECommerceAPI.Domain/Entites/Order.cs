@@ -9,7 +9,8 @@ namespace ECommerceAPI.Domain.Entites
     public class Order
     {
         public int OrderID { get; set; }
-        public int UserID { get; set; } 
+        public int UserID { get; set; }
+        public User User { get; set; } = null!;
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; } = "Pending";

@@ -10,10 +10,13 @@ namespace ECommerceAPI.Domain.Entites
     {
         public int AddressID { get; set; }
         public int UserID { get; set; } 
+        public User User { get; set; } = null!;
         public string Title {  get; set; } = string.Empty;
         public string FullAddress {  get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string District {  get; set; } = string.Empty;
+
+        public List<Order> Orders { get; set; } = null!;
 
     }
 }
