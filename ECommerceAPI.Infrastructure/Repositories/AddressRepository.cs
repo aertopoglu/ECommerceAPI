@@ -16,6 +16,16 @@ namespace ECommerceAPI.Infrastructure.Repositories
         {
         }
 
+        public async Task<IEnumerable<Address>> GetAddressesByAddressTitleAsync(string addressTitle)
+        {
+            return await _context.Addresses.Where(a => a.Title == addressTitle).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Address>> GetAddressesByCityAsync(string city)
+        {
+            return await _context.Addresses.Where(a => a.City == city).ToListAsync();   
+        }
+
         public async Task<IEnumerable<Address>> GetAddressesByUserIdAsync(int userId)
         {
             return await _context.Addresses

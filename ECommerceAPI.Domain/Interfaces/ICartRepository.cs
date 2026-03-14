@@ -13,6 +13,6 @@ namespace ECommerceAPI.Domain.Interfaces
         Task<int> GetCartCountAsync(int UserId);
         Task AddToCartAsync(int userId, int productId, int Quantity);
         Task DeleteFromCartAsync(int userId, int productId);
-        Task UpdateCartAsync(int userId, int productId,int Quantity);
+        Task UpdateCartAsync(int userId, int cartId,int Quantity);
     }
 }

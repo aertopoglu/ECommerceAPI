@@ -14,6 +14,5 @@ namespace ECommerceAPI.Core.Interfaces
         Task AddToCartAsync(CreateCartDTO cartdto, int userId);
         Task UpdateCartAsync(UpdateCartDTO cartdto, int userId);
         Task DeleteFromCartAsync(int productId, int userId);
-        Task ClearCartAsync(int userId);    
     }
 }

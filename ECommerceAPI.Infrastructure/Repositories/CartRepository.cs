@@ -54,9 +54,9 @@ namespace ECommerceAPI.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task UpdateCartAsync(int userId, int productId, int Quantity)
+        public async Task UpdateCartAsync(int userId, int cartId, int Quantity)
         {
-            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userId && c.ProductID==productId);
+            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userId && c.CartId==cartId);
             if(cart != null)
             {
                 cart.Quantity = Quantity;

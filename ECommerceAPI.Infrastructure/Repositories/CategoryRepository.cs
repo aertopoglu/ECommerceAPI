@@ -34,12 +34,12 @@ namespace ECommerceAPI.Infrastructure.Repositories
            return await _context.Categories.FirstOrDefaultAsync(c => c.Url == url);
         }
 
-        public async Task<Category?> GetCategoryWithProducts(int productId, int categoryId)
+        public async Task<Category?> GetCategoryWithProducts(int categoryId)
         {
             return await _context.Categories
                 .Include(c => c.ProductCategories)
                 .ThenInclude(pc => pc.Product)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(c => c.CategoryID == categoryId);
         }
     }
 }

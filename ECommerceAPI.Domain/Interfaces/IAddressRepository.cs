@@ -10,5 +10,7 @@ namespace ECommerceAPI.Domain.Interfaces
     public interface IAddressRepository : IGenericRepository<Address>
     {
         Task<IEnumerable<Address>> GetAddressesByUserIdAsync(int userId);
+        Task<IEnumerable<Address>> GetAddressesByAddressTitleAsync(string addressTitle);
+        Task<IEnumerable<Address>> GetAddressesByCityAsync(string city);
     }
 }

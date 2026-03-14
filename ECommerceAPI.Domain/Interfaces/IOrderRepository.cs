@@ -11,6 +11,8 @@ namespace ECommerceAPI.Domain.Interfaces
     {
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int  userId);
         Task<Order?> GetOrderByIdAsync(int OrderId);
+        Task AddOrderItemAsync(OrderItem orderItem);
+        Task<OrderItem?> GetOrderItemByIdAsync(int orderItemId);
         Task<IEnumerable<Order>> GetOrdersByStatusAsync(string OrderStatus);
         Task<int> GetOrderCountAsync(int userId);
     }

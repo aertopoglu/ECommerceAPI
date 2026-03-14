@@ -11,7 +11,7 @@ namespace ECommerceAPI.Domain.Interfaces
     {
         Task<Category?> GetCategoryByUrlAsync(string url);
         Task DeleteProductsByCategory(int productId,int categoryId);
-        Task<Category?> GetCategoryWithProducts(int productId,int categoryId);
+        Task<Category?> GetCategoryWithProducts(int categoryId);
 
     }
 }

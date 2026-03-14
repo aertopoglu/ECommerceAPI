@@ -16,6 +16,12 @@ namespace ECommerceAPI.Infrastructure.Repositories
         {
         }
 
+        public async Task AddOrderItemAsync(OrderItem orderItem)
+        {
+            await _context.OrderItems.AddAsync(orderItem);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Order?> GetOrderByIdAsync(int OrderId)
         {
             return await _context.Orders
@@ -29,6 +35,13 @@ namespace ECommerceAPI.Infrastructure.Repositories
         public async Task<int> GetOrderCountAsync(int userId)
         {
             return await _context.Orders.Where(o =>  userId == o.OrderID).CountAsync();
+        }
+
+        public async Task<OrderItem?> GetOrderItemByIdAsync(int orderItemId)
+        {
+           return await _context.OrderItems
+                .Include(oi => oi.Product)
+                .FirstOrDefaultAsync(oi => oi.OrderItemID == orderItemId);
         }
 
         public async Task<IEnumerable<Order>> GetOrdersByStatusAsync(string OrderStatus)
