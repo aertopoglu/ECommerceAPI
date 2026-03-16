@@ -9,7 +9,6 @@ namespace ECommerceAPI.Core.DTOs.Order
 {
     public class CreateOrderDTO
     {
-        [Required(ErrorMessage ="Address can't be blank")]
         public int AddressID { get; set; }
     }
 }

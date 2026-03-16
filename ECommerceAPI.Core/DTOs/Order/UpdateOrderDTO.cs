@@ -9,10 +9,8 @@ namespace ECommerceAPI.Core.DTOs.Order
 {
     public class UpdateOrderDTO
     {
-        [Required]
         public int OrderID { get; set; }
 
-        [Required]
         public string OrderStatus { get; set; } = string.Empty;
 
     }

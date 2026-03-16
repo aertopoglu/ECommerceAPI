@@ -1,9 +1,11 @@
 using ECommerceAPI.Core.Interfaces;
 using ECommerceAPI.Core.Mappings;
 using ECommerceAPI.Core.Services;
+using ECommerceAPI.Core.Validators.User;
 using ECommerceAPI.Domain.Interfaces;
 using ECommerceAPI.Infrastructure.Data;
 using ECommerceAPI.Infrastructure.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +19,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+builder.Services.AddAutoMapper(
+    typeof(MappingProfile).Assembly,
+    typeof(Program).Assembly
+);
+
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
+
 
 //DI LIFETIME FOR REPOSITORY
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
