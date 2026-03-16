@@ -19,31 +19,17 @@ namespace ECommerceAPI.UI.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDTO dto)
+        public async Task<IActionResult> Register(RegisterDTO registerdto)
         {
-            try
-            {
-                await _userService.RegisterAsync(dto);
-                return Ok("Registration successful");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _userService.RegisterAsync(registerdto);
+            return Ok("Registration successful");
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDTO dto)
+        public async Task<IActionResult> Login(LoginDTO logindto)
         {
-            try
-            {
-                var token = await _userService.LoginAsync(dto);
-                return Ok(new { Token = token });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var token = await _userService.LoginAsync(logindto);
+            return Ok(new { Token = token });
         }
 
 
