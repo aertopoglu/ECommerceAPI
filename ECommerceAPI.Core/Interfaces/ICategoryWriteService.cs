@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Interfaces
 {
-    public interface ICategoryService
+    public interface ICategoryWriteService
     {
-        Task<IEnumerable<CategoryDTO>> GetAllCategoriesAsync();
-        Task<CategoryDTO?> GetCategoryByIdAsync(int id);
-        Task<CategoryDTO?> GetCategoryByUrlAsync(string url);
-        Task<CategoryWithProductsDTO?> GetCategoryWithProductsAsync(int id);
         Task CreateCategoryAsync(CreateCategoryDTO categorydto);
         Task UpdateCategoryAsync(UpdateCategoryDTO categorydto);
         Task DeleteCategoryAsync(int id);

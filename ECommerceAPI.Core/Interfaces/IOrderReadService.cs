@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Interfaces
 {
-    public interface IOrderService
+    public interface IOrderReadService
     {
         Task<IEnumerable<OrderDTO>> GetAllOrdersAsync();
         Task<IEnumerable<OrderDTO>> GetOrdersByUserIdAsync(int userId);
@@ -15,8 +15,5 @@ namespace ECommerceAPI.Core.Interfaces
         Task<OrderItemDTO?> GetOrderItemByIdAsync(int ProductId);
         Task<int> GetOrderCountAsync(int userId);
         Task<IEnumerable<OrderDTO>> GetOrdersByStatusAsync(string status);
-        Task CreateOrderAsync(CreateOrderDTO dto, int userId);
-        Task UpdateOrderStatusAsync(UpdateOrderDTO dto);
-        Task DeleteOrderAsync(int id);
     }
 }

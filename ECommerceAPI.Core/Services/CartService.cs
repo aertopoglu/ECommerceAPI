@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Services
 {
-    public class CartService : ICartService
+    public class CartService : ICartWriteService,ICartReadService
     {
         private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;

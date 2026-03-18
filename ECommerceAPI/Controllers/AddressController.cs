@@ -12,9 +12,9 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class AddressController : ControllerBase
     {
-        private readonly IAddressService _addressService;
+        private readonly IAddressWriteService _addressService;
 
-        public AddressController(IAddressService addressService)
+        public AddressController(IAddressWriteService addressService)
         {
             _addressService = addressService;
         }

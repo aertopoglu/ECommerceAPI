@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Interfaces
 {
-    public interface IProductService
+    public interface IProductReadService
     {
         Task<IEnumerable<ProductDTO>> GetAllProductsAsync();
         Task<IEnumerable<ProductDTO>> GetHomeProductsAsync();
@@ -17,13 +17,7 @@ namespace ECommerceAPI.Core.Interfaces
         Task<int> GetSearchCountAsync(string keyword);
         Task<int> GetCountByCategoryAsync(string url);
         Task<bool> IsInStockAsync(int ProductId);
-        Task CreateProductWithCategoriesAsync(CreateProductDTO productdto);
-        Task UpdateProductAsync(UpdateProductDTO productdto);
-        Task DeleteProductAsync(int ProductId);
-        Task UpdateStockAsync(int ProductId, int quantity);
         Task<ProductDTO?> GetProductByIdWithCategoriesAsync(int id);
         Task<ProductDTO?> GetProductByUrlAsync(string url);
-
-
     }
 }

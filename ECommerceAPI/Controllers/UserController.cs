@@ -10,9 +10,9 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserWriteService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserWriteService userService)
         {
             _userService = userService;
         }

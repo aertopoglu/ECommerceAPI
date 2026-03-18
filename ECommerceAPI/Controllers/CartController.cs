@@ -12,9 +12,9 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class CartController : ControllerBase
     {
-        private readonly ICartService _cartService;
+        private readonly ICartWriteService _cartService;
 
-        public CartController(ICartService cartService)
+        public CartController(ICartWriteService cartService)
         {
             _cartService = cartService;
         }

@@ -12,9 +12,9 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderService _orderService;
+        private readonly IOrderWriteService _orderService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderWriteService orderService)
         {
             _orderService = orderService;
         }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService : IOrderWriteService,IOrderReadService
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;

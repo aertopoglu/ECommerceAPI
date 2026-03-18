@@ -11,9 +11,9 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ICategoryWriteService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryWriteService categoryService)
         {
             _categoryService = categoryService;
         }

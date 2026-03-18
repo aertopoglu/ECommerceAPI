@@ -10,9 +10,9 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProductWriteService _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductWriteService productService)
         {
             _productService = productService;
         }

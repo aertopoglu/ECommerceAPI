@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductWriteService,IProductReadService
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;

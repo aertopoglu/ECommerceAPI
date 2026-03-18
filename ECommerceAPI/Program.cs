@@ -38,12 +38,18 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 //DI LIFETIME FOR SERVICE
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IProductWriteService, ProductService>();
+builder.Services.AddScoped<IProductReadService, ProductService>();
+builder.Services.AddScoped<ICategoryWriteService, CategoryService>();
+builder.Services.AddScoped<ICategoryReadService, CategoryService>();
+builder.Services.AddScoped<IOrderWriteService, OrderService>();
+builder.Services.AddScoped<IOrderReadService, OrderService>();
+builder.Services.AddScoped<ICartWriteService, CartService>();
+builder.Services.AddScoped<ICartReadService, CartService>();
+builder.Services.AddScoped<IUserWriteService, UserService>();
+builder.Services.AddScoped<IUserReadService, UserService>();
+builder.Services.AddScoped<IAddressWriteService, AddressService>();
+builder.Services.AddScoped<IAddressReadService, AddressService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"]!;

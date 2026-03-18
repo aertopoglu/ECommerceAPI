@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Services
 {
-    public class UserService : IUserService
+    public class UserService : IUserWriteService,IUserReadService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;

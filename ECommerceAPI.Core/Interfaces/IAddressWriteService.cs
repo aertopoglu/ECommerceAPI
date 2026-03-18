@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Interfaces
 {
-    public interface IAddressService
+    public interface IAddressWriteService
     {
-        Task<IEnumerable<AddressDTO>> GetAddressesByUserIdAsync(int userId);
-        Task<IEnumerable<AddressDTO>> GetAddressesByAddressTitleAsync(string addressTitle); //admin
-        Task<IEnumerable<AddressDTO>> GetAddressesByCityAsync(string addressCity); //admin
+        
         Task CreateAddressAsync(CreateAddressDTO addressdto, int userId);
         Task UpdateAddressAsync(UpdateAddressDTO addressdto, int userId);
         Task DeleteAddressAsync(int id, int userId);

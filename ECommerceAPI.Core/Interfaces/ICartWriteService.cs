@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Interfaces
 {
-    public interface ICartService
+    public interface ICartWriteService
     {
-        Task<IEnumerable<CartDTO>> GetAllCartDtos();
-        Task<int> GetCartCountAsync(int userId);
         Task AddToCartAsync(CreateCartDTO cartdto, int userId);
         Task UpdateCartAsync(UpdateCartDTO cartdto, int userId);
         Task DeleteFromCartAsync(int productId, int userId);

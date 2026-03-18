@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceAPI.Core.Services
 {
-    public class AddressService : IAddressService
+    public class AddressService : IAddressWriteService,IAddressReadService
     {
         private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
