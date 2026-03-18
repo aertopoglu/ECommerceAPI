@@ -18,7 +18,7 @@ This project follows SOLID principles:
 - Single Responsibility - Each class has one responsibility (Repository, Service, Controller are separated)
 - Open/Closed - Open for extension, closed for modification (Generic Repository, Interface-based design)
 - Liskov Substitution - Concrete implementations can replace their interfaces anywhere
-- Interface Segregation - Separate interfaces for each entity (IProductRepository, IOrderRepository, etc.)
+- Interface Segregation - Separate interfaces for each service (IWriteProductRepository, IWriteProductRepository and etc.)
 - Dependency Inversion - Controllers depend on abstractions (IProductService) not concrete classes (ProductService)
 
 ## Configuration
