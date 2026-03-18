@@ -21,6 +21,18 @@ This project follows SOLID principles:
 - Interface Segregation - Separate interfaces for each entity (IProductRepository, IOrderRepository, etc.)
 - Dependency Inversion - Controllers depend on abstractions (IProductService) not concrete classes (ProductService)
 
+## Configuration
+
+Sensitive data such as JWT secret and database connection string are stored using .NET User Secrets.
+
+Run:
+
+dotnet user-secrets init
+
+dotnet user-secrets set "JwtSettings:SecretKey" "your-secret"
+
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "your-connection-string"
+
 ## Technologies
 
 - ASP.NET Core 8
