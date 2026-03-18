@@ -18,7 +18,6 @@ namespace ECommerceAPI.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Slider> Sliders { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
