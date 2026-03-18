@@ -10,25 +10,25 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserWriteService _userService;
+        private readonly IUserWriteService _userWriteService;
 
-        public UserController(IUserWriteService userService)
+        public UserController(IUserWriteService userWriteService)
         {
-            _userService = userService;
+            _userWriteService = userWriteService;
         }
 
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO registerdto)
         {
-            await _userService.RegisterAsync(registerdto);
+            await _userWriteService.RegisterAsync(registerdto);
             return Ok("Registration successful");
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO logindto)
         {
-            var token = await _userService.LoginAsync(logindto);
+            var token = await _userWriteService.LoginAsync(logindto);
             return Ok(new { Token = token });
         }
 

@@ -10,17 +10,20 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductWriteService _productService;
+        private readonly IProductWriteService _productWriteService;
+        private readonly IProductReadService _productReadService;
 
-        public ProductController(IProductWriteService productService)
+
+        public ProductController(IProductWriteService productWriteService,IProductReadService productReadService)
         {
-            _productService = productService;
+            _productWriteService = productWriteService;
+            _productReadService = productReadService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productReadService.GetAllProductsAsync();
             return Ok(products);
         }
 
@@ -28,14 +31,14 @@ namespace ECommerceAPI.UI.Controllers
         [HttpGet("home")]
         public async Task<IActionResult> GetHomeProducts()
         {
-            var products = await _productService.GetHomeProductsAsync();
+            var products = await _productReadService.GetHomeProductsAsync();
             return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var product = await _productService.GetProductByIdWithCategoriesAsync(id);
+            var product = await _productReadService.GetProductByIdWithCategoriesAsync(id);
             if (product == null) return NotFound("Product not found");
             return Ok(product);
         }
@@ -43,7 +46,7 @@ namespace ECommerceAPI.UI.Controllers
         [HttpGet("url/{url}")]
         public async Task<IActionResult> GetByUrl(string url)
         {
-            var product = await _productService.GetProductByUrlAsync(url);
+            var product = await _productReadService.GetProductByUrlAsync(url);
             if (product == null) return NotFound("Product not found");
             return Ok(product);
         }
@@ -52,8 +55,8 @@ namespace ECommerceAPI.UI.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> Search(string keyword, int page = 1, int pageSize = 12)
         {
-            var products = await _productService.GetSearchProductAsync(keyword, page, pageSize);
-            var count = await _productService.GetSearchCountAsync(keyword);
+            var products = await _productReadService.GetSearchProductAsync(keyword, page, pageSize);
+            var count = await _productReadService.GetSearchCountAsync(keyword);
             return Ok(new { Products = products, TotalCount = count });
         }
 
@@ -61,7 +64,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateProductDTO dto)
         {
-            await _productService.CreateProductWithCategoriesAsync(dto);
+            await _productWriteService.CreateProductWithCategoriesAsync(dto);
             return Ok("Product added");
         }
 
@@ -69,7 +72,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateProductDTO dto)
         {
-            await _productService.UpdateProductAsync(dto);
+            await _productWriteService.UpdateProductAsync(dto);
             return Ok("Product updated");
         }
 
@@ -77,7 +80,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            await _productWriteService.DeleteProductAsync(id);
             return Ok("Product deleted");
         }
 

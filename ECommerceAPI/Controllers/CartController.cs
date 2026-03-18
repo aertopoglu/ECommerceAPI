@@ -12,18 +12,21 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class CartController : ControllerBase
     {
-        private readonly ICartWriteService _cartService;
+        private readonly ICartWriteService _cartWriteService;
+        private readonly ICartReadService _cartReadService;
 
-        public CartController(ICartWriteService cartService)
+
+        public CartController(ICartWriteService cartWriteService,ICartReadService cartReadService)
         {
-            _cartService = cartService;
+            _cartWriteService = cartWriteService;
+            _cartReadService = cartReadService;
         }
 
         [HttpGet("count")]
         public async Task<IActionResult> GetCartCount()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            var count = await _cartService.GetCartCountAsync(userId);
+            var count = await _cartReadService.GetCartCountAsync(userId);
             return Ok(count);
         }
 
@@ -31,7 +34,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> AddToCart(CreateCartDTO cartdto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _cartService.AddToCartAsync(cartdto, userId);
+            await _cartWriteService.AddToCartAsync(cartdto, userId);
             return Ok("Product added to cart");
         }
 
@@ -39,7 +42,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> UpdateCart(UpdateCartDTO cartdto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _cartService.UpdateCartAsync(cartdto, userId);
+            await _cartWriteService.UpdateCartAsync(cartdto, userId);
             return Ok("Cart updated");
         }
 
@@ -47,7 +50,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> DeleteFromCart(int productId)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _cartService.DeleteFromCartAsync(productId, userId);
+            await _cartWriteService.DeleteFromCartAsync(productId, userId);
             return Ok("Product deleted from cart");
         }
     

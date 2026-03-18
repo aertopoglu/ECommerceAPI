@@ -11,24 +11,27 @@ namespace ECommerceAPI.UI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryWriteService _categoryService;
+        private readonly ICategoryWriteService _categoryWriteService;
+        private readonly ICategoryReadService _categoryReadService;
 
-        public CategoryController(ICategoryWriteService categoryService)
+
+        public CategoryController(ICategoryWriteService categoryWriteService,ICategoryReadService categoryReadService)
         {
-            _categoryService = categoryService;
+            _categoryWriteService = categoryWriteService;
+            _categoryReadService = categoryReadService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var categories = await _categoryReadService.GetAllCategoriesAsync();
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+            var category = await _categoryReadService.GetCategoryByIdAsync(id);
             if (category == null) return NotFound("Category not found");
             return Ok(category);
         }
@@ -36,7 +39,7 @@ namespace ECommerceAPI.UI.Controllers
         [HttpGet("url/{url}")]
         public async Task<IActionResult> GetByUrl(string url)
         {
-            var category = await _categoryService.GetCategoryByUrlAsync(url);
+            var category = await _categoryReadService.GetCategoryByUrlAsync(url);
             if (category == null) return NotFound("Category not found");
             return Ok(category);
         }
@@ -44,7 +47,7 @@ namespace ECommerceAPI.UI.Controllers
         [HttpGet("{id}/products")]
         public async Task<IActionResult> GetWithProducts(int id)
         {
-            var category = await _categoryService.GetCategoryWithProductsAsync(id);
+            var category = await _categoryReadService.GetCategoryWithProductsAsync(id);
             if (category == null) return NotFound("Category not found");
             return Ok(category);
         }
@@ -53,7 +56,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateCategoryDTO categorydto)
         {
-            await _categoryService.CreateCategoryAsync(categorydto);
+            await _categoryWriteService.CreateCategoryAsync(categorydto);
             return Ok("Category created");
         }
 
@@ -61,7 +64,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateCategoryDTO categorydto)
         {
-            await _categoryService.UpdateCategoryAsync(categorydto);
+            await _categoryWriteService.UpdateCategoryAsync(categorydto);
             return Ok("Category updated");
         }
 
@@ -69,9 +72,9 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+            var category = await _categoryReadService.GetCategoryByIdAsync(id);
             if (category == null) return NotFound("Category not found");
-            await _categoryService.DeleteCategoryAsync(id);
+            await _categoryWriteService.DeleteCategoryAsync(id);
             return Ok("Category deleted");
         }
 
@@ -79,7 +82,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProductCategory(int productId, int categoryId)
         {
-            await _categoryService.DeleteProductCategoryAsync(productId, categoryId);
+            await _categoryWriteService.DeleteProductCategoryAsync(productId, categoryId);
             return Ok("Product deleted from this category");
         }
     }

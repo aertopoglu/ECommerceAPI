@@ -12,18 +12,21 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderWriteService _orderService;
+        private readonly IOrderWriteService _orderWriteService;
+        private readonly IOrderReadService _orderReadService;
 
-        public OrderController(IOrderWriteService orderService)
+
+        public OrderController(IOrderWriteService orderWriteService,IOrderReadService orderReadService)
         {
-            _orderService = orderService;
+            _orderWriteService = orderWriteService;
+            _orderReadService = orderReadService;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
-            var orders = await _orderService.GetAllOrdersAsync();
+            var orders = await _orderReadService.GetAllOrdersAsync();
             return Ok(orders);
         }
 
@@ -32,14 +35,14 @@ namespace ECommerceAPI.UI.Controllers
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
-            var orders = await _orderService.GetOrdersByUserIdAsync(userId);
+            var orders = await _orderReadService.GetOrdersByUserIdAsync(userId);
             return Ok(orders);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var order = await _orderService.GetOrderByIdAsync(id);
+            var order = await _orderReadService.GetOrderByIdAsync(id);
             if (order == null) return NotFound("Order not found");
 
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
@@ -54,7 +57,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByStatus(string status)
         {
-            var orders = await _orderService.GetOrdersByStatusAsync(status);
+            var orders = await _orderReadService.GetOrdersByStatusAsync(status);
             return Ok(orders);
         }
 
@@ -62,7 +65,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> GetOrderCount()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            var count = await _orderService.GetOrderCountAsync(userId);
+            var count = await _orderReadService.GetOrderCountAsync(userId);
             return Ok(count);
         }
 
@@ -70,7 +73,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> Create(CreateOrderDTO orderdto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _orderService.CreateOrderAsync(orderdto, userId);
+            await _orderWriteService.CreateOrderAsync(orderdto, userId);
             return Ok("Order created");
         }
 
@@ -78,7 +81,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateStatus(UpdateOrderDTO dto)
         {
-            await _orderService.UpdateOrderStatusAsync(dto);
+            await _orderWriteService.UpdateOrderStatusAsync(dto);
             return Ok("Order status updated!");
         }
 
@@ -86,7 +89,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _orderService.DeleteOrderAsync(id);
+            await _orderWriteService.DeleteOrderAsync(id);
             return Ok("Order deleted!");
         }
     }

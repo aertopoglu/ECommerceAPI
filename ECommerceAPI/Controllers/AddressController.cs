@@ -12,18 +12,20 @@ namespace ECommerceAPI.UI.Controllers
     [Authorize]
     public class AddressController : ControllerBase
     {
-        private readonly IAddressWriteService _addressService;
+        private readonly IAddressWriteService _addressWriteService;
+        private readonly IAddressReadService _addressReadService;
 
-        public AddressController(IAddressWriteService addressService)
+        public AddressController(IAddressWriteService addressWriteService,IAddressReadService addressReadService)
         {
-            _addressService = addressService;
+            _addressWriteService = addressWriteService;
+            _addressReadService = addressReadService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMyAddresses()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            var addresses = await _addressService.GetAddressesByUserIdAsync(userId);
+            var addresses = await _addressReadService.GetAddressesByUserIdAsync(userId);
             return Ok(addresses);
         }
 
@@ -31,7 +33,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByCity(string city)
         {
-            var addresses = await _addressService.GetAddressesByCityAsync(city);
+            var addresses = await _addressReadService.GetAddressesByCityAsync(city);
             return Ok(addresses);
         }
 
@@ -39,7 +41,7 @@ namespace ECommerceAPI.UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByTitle(string title)
         {
-            var addresses = await _addressService.GetAddressesByAddressTitleAsync(title);
+            var addresses = await _addressReadService.GetAddressesByAddressTitleAsync(title);
             return Ok(addresses);
         }
 
@@ -47,7 +49,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> Create(CreateAddressDTO dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _addressService.CreateAddressAsync(dto, userId);
+            await _addressWriteService.CreateAddressAsync(dto, userId);
             return Ok("Address created");
         }
 
@@ -55,7 +57,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> Update(UpdateAddressDTO dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _addressService.UpdateAddressAsync(dto, userId);
+            await _addressWriteService.UpdateAddressAsync(dto, userId);
             return Ok("Address updated");
         }
 
@@ -63,7 +65,7 @@ namespace ECommerceAPI.UI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _addressService.DeleteAddressAsync(id, userId);
+            await _addressWriteService.DeleteAddressAsync(id, userId);
             return Ok("Address deleted successfully!");
         }
     }
